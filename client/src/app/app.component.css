@@ -1,0 +1,53 @@
+.fa-solid {
+    margin: 5px;
+}
+
+.fa-check {
+    color: rgb(4, 196, 4);
+}
+
+.fa-pencil {
+    color: rgb(10, 122, 188);
+}
+
+.fa-trash {
+    color: rgb(196, 11, 11);
+}
+
+.title {
+    font-weight: bold;
+}
+
+.description {
+    font-style: italic;
+}
+
+.card {
+    padding: 0px;
+}
+
+.task-add {
+    color: white;
+    background: linear-gradient(45deg, #0F2027, #203A43, #2C5364);
+}
+
+.inprog {
+    color: white;
+    background: linear-gradient(45deg, #2193b0, #6dd5ed);
+}
+
+.completed {
+    color: white;
+    background: linear-gradient(45deg, #56ab2f, #a8e063);
+}
+
+.archive {
+    color: white;
+    background: linear-gradient(45deg, #870000, #EA384D);
+}
+
+.footer {
+    position: sticky;
+    left: 0px;
+    bottom: 0px;
+}

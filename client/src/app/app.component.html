@@ -1,0 +1,67 @@
+<nav class="navbar navbar-light bg-light sticky-top">
+    <h2 class="navbar-brand p-3">Task Manager</h2>
+</nav>
+<div class="container-fluid">
+
+    <div class="row justify-content-center mt-4">
+        <div class="card col-md-6 col-sm-12">
+            <div class="card-header task-add">
+                <h6><i class="fa-solid fa-plus"></i>Add Task</h6>
+            </div>
+            <div class="card-body">
+                <form #taskForm="ngForm" (ngSubmit)="postTask(taskForm)" class="form-group">
+                    <input type="hidden" class="form-control mb-3" name="_id" #_id="ngModel" [(ngModel)]="tasklistService.selectedTask._id" placeholder="_id">
+                    <input type="text" class="form-control mb-3" name="title" #name="ngModel" [(ngModel)]="tasklistService.selectedTask.title" placeholder="Enter task title" required>
+
+                    <textarea id="my-textarea " class="form-control mb-3" name="description" rows="2" #description="ngModel" [(ngModel)]="tasklistService.selectedTask.description" placeholder="Enter task description" required></textarea>
+                    <input type="date" class="form-control mb-3" name="date" #date="ngModel" [(ngModel)]="tasklistService.selectedTask.date" required>
+                    <input type="hidden" class="form-control mb-3" name="isCompleted" #isCompleted="ngModel" [(ngModel)]="tasklistService.selectedTask.isCompleted" placeholder="completed" value="false">
+                    <button type="submit" value="submit" class="btn btn-block btn-primary"> ADD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-evenly mt-3">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header inprog d-flex justify-content-between">
+                    <p><i class="fa-solid fa-bars-progress"></i>In-Progress</p><span>{{inProgCount}}</span>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group mb-3" #inProg *ngFor="let task of tasklistService.tasks.reverse() | inProgress: 'isCompleted':false">
+                        <li class="list-group-item d-flex justify-content-between"><span class="title">{{task.title}}</span><span>{{today | date}}</span><span class="justify-content-evenly"><i class="fa-solid fa-check" (click)="completed(task)"></i><i class="fa-solid fa-pencil" (click)="editTask(task)"></i><i class="fa-solid fa-trash" (click)="deleteTask(task._id)"></i></span></li>
+                        <li class="list-group-item d-flex justify-content-between"><span class="description">{{task.description}}</span><span>{{task.date | date}}</span><span></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header completed d-flex justify-content-between">
+                    <p><i class="fa-solid fa-list-check"></i> Completed</p><span>{{completeCount}}</span>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group mb-3" #complete *ngFor="let task of tasklistService.tasks | completed: 'isCompleted' : true |slice:-10 ">
+                        <li class="list-group-item d-flex justify-content-between"><span class="title">{{task.title}}</span><span class="justify-content-evenly"><i class="fa-solid fa-trash"  (click)="deleteTask(task._id)"></i></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header archive d-flex justify-content-between">
+                    <p><i class="fa-solid fa-inbox"></i>Archive</p><span>{{archivedCount}}</span>
+                </div>
+                <div class="card-body">
+                    <ul class="d-flex list-group" #archive *ngFor="let task of tasklistService.tasks | completed: 'isCompleted' : true |archive">
+                        <li class="list-group-item d-flex justify-content-between mb-3"><span class="title">{{task.title}}</span><span class="justify-content-evenly"><i class="fa-solid fa-trash"  (click)="deleteTask(task._id)"></i></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<nav class="navbar navbar-light bg-light sticky-bottom justify-content-center mt-5 footer">
+    <p><i class="fa fa-copyright" aria-hidden="true"> </i>Copyrights reserved to Omkar P<i class="fa-solid fa-trademark"></i></p>
+</nav>
